@@ -4,26 +4,25 @@
 
 #= VIM board init config
 
-echo 0 4 1 > /proc/sys/kernel/printk
+echo 0 4 1 >/proc/sys/kernel/printk
 
 ETH=1
-USBNET=1
-#USB_NET_MODE=br-lan	#
-USBNET_MODE=		# default dhcp connection no routing
+# USBNET=1
+# USB_NET_MODE=br-lan	#
+# USBNET_MODE= # default dhcp connection no routing
 
 /opt/cpu_freq_fix
 
-[ "$ETH" ] && \
-[ -d /sys/class/net/eth0 ] || /opt/eth_on
+[ "$ETH" ] && [ -d /sys/class/net/eth0 ] || /opt/eth_on
 
-grep '#' -v /etc/config/network | grep -q "usb0" && {
-# [ "$(uci get network.lan.ifname)" = "usb0" ] && {
-    USBNET_MODE=none   # configured by openwrt
-}
-[ "$USBNET" ] && [ -d /sys/class/net/usb0 ] || /opt/usb_otg_rndis $USBNET_MODE
+# grep '#' -v /etc/config/network | grep -q "usb0" && {
+# # [ "$(uci get network.lan.ifname)" = "usb0" ] && {
+#     USBNET_MODE=none   # configured by openwrt
+# }
+# [ "$USBNET" ] && [ -d /sys/class/net/usb0 ] || /opt/usb_otg_rndis $USBNET_MODE
 
 for l in /sys/class/leds/vim*; do
-    [ -d "$l" ] || /opt/led hb
+	[ -d "$l" ] || /opt/led hb
 done
 
 #config led
@@ -35,7 +34,6 @@ done
 #exit 0
 
 ## optimize
-
 
 #/etc/board.d/10_vims_hw_usb_optimize
 #/etc/board.d/10_vims_hw_eth_optimize
